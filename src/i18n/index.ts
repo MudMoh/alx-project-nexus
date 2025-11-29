@@ -1,5 +1,5 @@
 import * as RNLocalize from 'expo-localization';
-import i18n from 'i18n-js';
+import * as i18n from 'i18n-js';
 
 const translations = {
     en: {
@@ -154,8 +154,8 @@ const translations = {
     },
 };
 
-(i18n as any).translations = translations;
-(i18n as any).locale = RNLocalize.getLocales()[0].languageCode;
 (i18n as any).fallbacks = true;
+(i18n as any).locale = RNLocalize.getLocales()[0].languageCode;
+(i18n as any).translations = translations;
 
 export default i18n;
