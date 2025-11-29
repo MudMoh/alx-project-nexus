@@ -1,7 +1,9 @@
-import React from 'react';
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import React, { useRef, useEffect } from 'react';
+import { View, Text, TouchableOpacity, StyleSheet, Animated } from 'react-native';
 import { StackNavigationProp } from '@react-navigation/stack';
+import { Ionicons } from '@expo/vector-icons';
 import { Job } from '../types/job';
+import { lightTheme } from '../theme';
 
 type RootStackParamList = {
     Home: undefined;
@@ -17,48 +19,99 @@ interface Props {
 }
 
 const JobCard: React.FC<Props> = React.memo(({ job, navigation }) => {
+    const fadeAnim = useRef(new Animated.Value(0)).current;
+
+    useEffect(() => {
+        Animated.timing(fadeAnim, {
+            toValue: 1,
+            duration: 500,
+            useNativeDriver: true,
+        }).start();
+    }, [fadeAnim]);
+
     return (
-        <TouchableOpacity
-            style={styles.card}
-            onPress={() => navigation.navigate('JobDetails', { job })}
-            accessibilityLabel={`Job: ${job.title} at ${job.company}`}
-            accessibilityHint="Tap to view job details"
-            accessibilityRole="button"
-            testID={`job-card-${job.id}`}
-        >
-            <Text style={styles.title} testID={`job-title-${job.id}`}>{job.title}</Text>
-            <Text style={styles.company}>{job.company}</Text>
-            <Text style={styles.location}>{job.location}</Text>
-        </TouchableOpacity>
+        <Animated.View style={{ opacity: fadeAnim }}>
+            <TouchableOpacity
+                style={styles.card}
+                onPress={() => navigation.navigate('JobDetails', { job })}
+                accessibilityLabel={`Job: ${job.title} at ${job.company} in ${job.location}`}
+                accessibilityHint="Double tap to view details"
+                accessibilityRole="button"
+                accessibilityState={{ selected: false }}
+                minHeight={44}
+                testID={`job-card-${job.id}`}
+            >
+                <View style={styles.header}>
+                    <Text style={styles.title} testID={`job-title-${job.id}`}>{job.title}</Text>
+                    <Ionicons name="bookmark-outline" size={24} color="#007bff" />
+                </View>
+                <Text style={styles.company}>{job.company}</Text>
+                <View style={styles.locationRow}>
+                    <Ionicons name="location-outline" size={16} color="#666" />
+                    <Text style={styles.location}>{job.location}</Text>
+                </View>
+                <View style={styles.footer}>
+                    <Text style={styles.category}>{job.category}</Text>
+                    <Text style={styles.experience}>{job.experience}</Text>
+                </View>
+            </TouchableOpacity>
+        </Animated.View>
     );
 });
 
 const styles = StyleSheet.create({
     card: {
-        backgroundColor: '#fff',
+        backgroundColor: lightTheme.colors.surface,
         padding: 16,
         marginVertical: 8,
         marginHorizontal: 16,
-        borderRadius: 8,
+        borderRadius: 12,
         shadowColor: '#000',
         shadowOffset: { width: 0, height: 2 },
         shadowOpacity: 0.1,
         shadowRadius: 4,
-        elevation: 2,
+        elevation: 3,
+    },
+    header: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
     },
     title: {
         fontSize: 18,
         fontWeight: 'bold',
         marginBottom: 4,
+        flex: 1,
+        color: lightTheme.colors.text,
     },
     company: {
         fontSize: 16,
-        color: '#666',
-        marginBottom: 2,
+        color: lightTheme.colors.textSecondary,
+        marginBottom: 4,
+    },
+    locationRow: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        marginBottom: 8,
     },
     location: {
         fontSize: 14,
         color: '#999',
+        marginLeft: 4,
+    },
+    footer: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+    },
+    category: {
+        fontSize: 12,
+        color: '#007bff',
+        fontWeight: 'bold',
+    },
+    experience: {
+        fontSize: 12,
+        color: '#28a745',
+        fontWeight: 'bold',
     },
 });
 

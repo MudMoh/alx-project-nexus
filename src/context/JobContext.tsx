@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useState, useEffect, ReactNode, useCallback } from 'react';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Job } from '../types/job';
 import { fetchJobs } from '../utils/api';
 
@@ -6,6 +7,7 @@ interface Filters {
     category: string;
     location: string;
     experience: string;
+    search: string;
 }
 
 interface JobContextType {
@@ -40,20 +42,30 @@ export const JobProvider: React.FC<JobProviderProps> = ({ children }) => {
         category: '',
         location: '',
         experience: '',
+        search: '',
     });
+
+    const CACHE_KEY = 'jobs_cache';
 
     const fetchJobsData = useCallback(async () => {
         setLoading(true);
         setError(null);
         try {
+            // Try cache first
+            const cached = await AsyncStorage.getItem(CACHE_KEY);
+            if (cached) {
+                setJobs(JSON.parse(cached));
+            }
+            // Fetch fresh data
             const data = await fetchJobs();
             setJobs(data);
+            await AsyncStorage.setItem(CACHE_KEY, JSON.stringify(data));
         } catch (err) {
-            setError('Failed to fetch jobs');
+            if (!jobs.length) setError('No cached data available');
         } finally {
             setLoading(false);
         }
-    }, []);
+    }, [jobs.length]);
 
     useEffect(() => {
         fetchJobsData();
@@ -68,11 +80,13 @@ export const JobProvider: React.FC<JobProviderProps> = ({ children }) => {
     }, [fetchJobsData]);
 
     const filteredJobs = jobs.filter(job => {
-        return (
-            (filters.category === '' || job.category === filters.category) &&
-            (filters.location === '' || job.location === filters.location) &&
-            (filters.experience === '' || job.experience === filters.experience)
-        );
+        const matchesCategory = filters.category === '' || job.category === filters.category;
+        const matchesLocation = filters.location === '' || job.location === filters.location;
+        const matchesExperience = filters.experience === '' || job.experience === filters.experience;
+        const matchesSearch = filters.search === '' ||
+            job.title.toLowerCase().includes(filters.search.toLowerCase()) ||
+            job.company.toLowerCase().includes(filters.search.toLowerCase());
+        return matchesCategory && matchesLocation && matchesExperience && matchesSearch;
     });
 
     const value: JobContextType = {
