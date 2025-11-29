@@ -1,5 +1,5 @@
 import * as RNLocalize from 'expo-localization';
-import * as i18n from 'i18n-js';
+import i18n from 'i18n-js';
 
 const translations = {
     en: {
