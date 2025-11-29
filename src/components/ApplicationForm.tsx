@@ -57,7 +57,7 @@ const ApplicationForm: React.FC<Props> = ({ job }) => {
     };
 
     return (
-        <ScrollView style={styles.container} testID="application-form">
+        <ScrollView style={styles.container} accessibilityLabel="Application form" testID="application-form">
             <Text style={styles.title}>Apply for {job.title} at {job.company}</Text>
             <View style={styles.inputContainer}>
                 <Text style={styles.label}>Name</Text>

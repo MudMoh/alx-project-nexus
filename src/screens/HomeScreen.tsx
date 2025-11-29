@@ -43,6 +43,11 @@ const HomeScreen: React.FC<Props> = ({ navigation }) => {
                 renderItem={({ item }) => (
                     <JobCard job={item} navigation={navigation} />
                 )}
+                getItemLayout={(data, index) => ({
+                    length: 120, // Approximate height of JobCard
+                    offset: 120 * index,
+                    index,
+                })}
                 testID="job-list"
             />
         </View>

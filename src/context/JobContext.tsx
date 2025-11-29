@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
+import React, { createContext, useContext, useState, useEffect, ReactNode, useCallback } from 'react';
 import { Job } from '../types/job';
 import { fetchJobs } from '../utils/api';
 
@@ -42,7 +42,7 @@ export const JobProvider: React.FC<JobProviderProps> = ({ children }) => {
         experience: '',
     });
 
-    const fetchJobsData = async () => {
+    const fetchJobsData = useCallback(async () => {
         setLoading(true);
         setError(null);
         try {
@@ -53,19 +53,19 @@ export const JobProvider: React.FC<JobProviderProps> = ({ children }) => {
         } finally {
             setLoading(false);
         }
-    };
+    }, []);
 
     useEffect(() => {
         fetchJobsData();
+    }, [fetchJobsData]);
+
+    const setFilters = useCallback((newFilters: Partial<Filters>) => {
+        setFiltersState(prev => ({ ...prev, ...newFilters }));
     }, []);
 
-    const setFilters = (newFilters: Partial<Filters>) => {
-        setFiltersState(prev => ({ ...prev, ...newFilters }));
-    };
-
-    const refetchJobs = () => {
+    const refetchJobs = useCallback(() => {
         fetchJobsData();
-    };
+    }, [fetchJobsData]);
 
     const filteredJobs = jobs.filter(job => {
         return (

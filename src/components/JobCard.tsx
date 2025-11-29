@@ -16,13 +16,14 @@ interface Props {
     navigation: JobCardNavigationProp;
 }
 
-const JobCard: React.FC<Props> = ({ job, navigation }) => {
+const JobCard: React.FC<Props> = React.memo(({ job, navigation }) => {
     return (
         <TouchableOpacity
             style={styles.card}
             onPress={() => navigation.navigate('JobDetails', { job })}
             accessibilityLabel={`Job: ${job.title} at ${job.company}`}
             accessibilityHint="Tap to view job details"
+            accessibilityRole="button"
             testID={`job-card-${job.id}`}
         >
             <Text style={styles.title} testID={`job-title-${job.id}`}>{job.title}</Text>
@@ -30,7 +31,7 @@ const JobCard: React.FC<Props> = ({ job, navigation }) => {
             <Text style={styles.location}>{job.location}</Text>
         </TouchableOpacity>
     );
-};
+});
 
 const styles = StyleSheet.create({
     card: {
