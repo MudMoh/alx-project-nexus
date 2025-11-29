@@ -5,7 +5,7 @@ node_modules/
 # md files
 development-plan.md
 project-nexus-prodev-FE.md
-
+architecture.md
 # Expo
 .expo/
 dist/
