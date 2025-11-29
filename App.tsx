@@ -6,11 +6,12 @@ import { JobProvider } from './src/context/JobContext';
 import HomeScreen from './src/screens/HomeScreen';
 import JobDetailsScreen from './src/screens/JobDetailsScreen';
 import ApplyScreen from './src/screens/ApplyScreen';
+import { Job } from './src/types/job';
 
 type RootStackParamList = {
   Home: undefined;
-  JobDetails: undefined;
-  Apply: undefined;
+  JobDetails: { job: Job };
+  Apply: { job: Job };
 };
 
 const Stack = createStackNavigator<RootStackParamList>();

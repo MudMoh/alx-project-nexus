@@ -1,23 +1,23 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
-import { StackNavigationProp } from '@react-navigation/stack';
+import { View, StyleSheet } from 'react-native';
+import { StackScreenProps } from '@react-navigation/stack';
+import { Job } from '../types/job';
+import ApplicationForm from '../components/ApplicationForm';
 
 type RootStackParamList = {
     Home: undefined;
-    JobDetails: undefined;
-    Apply: undefined;
+    JobDetails: { job: Job };
+    Apply: { job: Job };
 };
 
-type ApplyScreenNavigationProp = StackNavigationProp<RootStackParamList, 'Apply'>;
+type Props = StackScreenProps<RootStackParamList, 'Apply'>;
 
-interface Props {
-    navigation: ApplyScreenNavigationProp;
-}
+const ApplyScreen: React.FC<Props> = ({ navigation, route }) => {
+    const { job } = route.params;
 
-const ApplyScreen: React.FC<Props> = ({ navigation }) => {
     return (
         <View style={styles.container}>
-            <Text>Apply for Job</Text>
+            <ApplicationForm job={job} />
         </View>
     );
 };
@@ -25,8 +25,6 @@ const ApplyScreen: React.FC<Props> = ({ navigation }) => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
     },
 });
 
