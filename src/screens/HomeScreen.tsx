@@ -44,7 +44,7 @@ const HomeScreen: React.FC<Props> = ({ navigation }) => {
 
     return (
         <View style={styles.container} testID="home-screen">
-            <Text style={styles.title} testID="home-title">{i18n.t('jobBoard')}</Text>
+            <Text style={styles.title} testID="home-title">{(i18n as any).t('jobBoard')}</Text>
             <FilterBar />
             <FlatList
                 data={filteredJobs}
@@ -62,7 +62,7 @@ const HomeScreen: React.FC<Props> = ({ navigation }) => {
                 })}
                 refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}
                 ListFooterComponent={loading ? <SkeletonLoader /> : null}
-                ListEmptyComponent={<Text>{i18n.t('noJobsFound')}</Text>}
+                ListEmptyComponent={<Text>{(i18n as any).t('noJobsFound')}</Text>}
                 testID="job-list"
             />
         </View>

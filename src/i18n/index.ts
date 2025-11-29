@@ -154,8 +154,8 @@ const translations = {
     },
 };
 
-i18n.translations = translations;
-i18n.locale = RNLocalize.getLocales()[0].languageCode;
-i18n.fallbacks = true;
+(i18n as any).translations = translations;
+(i18n as any).locale = RNLocalize.getLocales()[0].languageCode;
+(i18n as any).fallbacks = true;
 
 export default i18n;

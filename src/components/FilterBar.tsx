@@ -21,21 +21,21 @@ const FilterBar: React.FC = () => {
         <View style={styles.container} testID="filter-bar">
             <TextInput
                 style={styles.searchInput}
-                placeholder={i18n.t('searchJobs')}
+                placeholder={(i18n as any).t('searchJobs')}
                 value={filters.search || ''}
                 onChangeText={(value) => setFilters({ search: value })}
-                accessibilityLabel={i18n.t('searchJobsLabel')}
-                accessibilityHint={i18n.t('enterKeywords')}
+                accessibilityLabel={(i18n as any).t('searchJobsLabel')}
+                accessibilityHint={(i18n as any).t('enterKeywords')}
                 testID="search-input"
             />
             <Picker
                 selectedValue={filters.category}
                 onValueChange={(value) => setFilters({ category: value })}
                 style={styles.picker}
-                accessibilityLabel={i18n.t('filterByCategory')}
+                accessibilityLabel={(i18n as any).t('filterByCategory')}
                 testID="category-picker"
             >
-                <Picker.Item label={i18n.t('allCategories')} value="" />
+                <Picker.Item label={(i18n as any).t('allCategories')} value="" />
                 <Picker.Item label="Tech" value="Tech" />
                 <Picker.Item label="Finance" value="Finance" />
                 <Picker.Item label="Healthcare" value="Healthcare" />
@@ -46,10 +46,10 @@ const FilterBar: React.FC = () => {
                 selectedValue={filters.location}
                 onValueChange={(value) => setFilters({ location: value })}
                 style={styles.picker}
-                accessibilityLabel={i18n.t('filterByLocation')}
+                accessibilityLabel={(i18n as any).t('filterByLocation')}
                 testID="location-picker"
             >
-                <Picker.Item label={i18n.t('allLocations')} value="" />
+                <Picker.Item label={(i18n as any).t('allLocations')} value="" />
                 <Picker.Item label="Nairobi" value="Nairobi" />
                 <Picker.Item label="Lagos" value="Lagos" />
                 <Picker.Item label="Cape Town" value="Cape Town" />
@@ -64,10 +64,10 @@ const FilterBar: React.FC = () => {
                 selectedValue={filters.experience}
                 onValueChange={(value) => setFilters({ experience: value })}
                 style={styles.picker}
-                accessibilityLabel={i18n.t('filterByExperience')}
+                accessibilityLabel={(i18n as any).t('filterByExperience')}
                 testID="experience-picker"
             >
-                <Picker.Item label={i18n.t('allExperiences')} value="" />
+                <Picker.Item label={(i18n as any).t('allExperiences')} value="" />
                 <Picker.Item label="Entry" value="Entry" />
                 <Picker.Item label="Mid" value="Mid" />
                 <Picker.Item label="Senior" value="Senior" />
@@ -75,7 +75,7 @@ const FilterBar: React.FC = () => {
                 <Picker.Item label="Executive" value="Executive" />
             </Picker>
             <TouchableOpacity onPress={enableNearby} style={styles.nearbyButton}>
-                <Text>{nearby ? i18n.t('nearbyEnabled') : i18n.t('nearbyJobs')}</Text>
+                <Text>{nearby ? (i18n as any).t('nearbyEnabled') : (i18n as any).t('nearbyJobs')}</Text>
             </TouchableOpacity>
         </View>
     );

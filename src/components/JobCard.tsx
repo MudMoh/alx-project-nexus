@@ -38,7 +38,6 @@ const JobCard: React.FC<Props> = React.memo(({ job, navigation }) => {
                 accessibilityHint="Double tap to view details"
                 accessibilityRole="button"
                 accessibilityState={{ selected: false }}
-                minHeight={44}
                 testID={`job-card-${job.id}`}
             >
                 <View style={styles.header}>
@@ -71,6 +70,7 @@ const styles = StyleSheet.create({
         shadowOpacity: 0.1,
         shadowRadius: 4,
         elevation: 3,
+        minHeight: 44,
     },
     header: {
         flexDirection: 'row',
