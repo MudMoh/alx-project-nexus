@@ -34,8 +34,8 @@ const HomeScreen: React.FC<Props> = ({ navigation }) => {
     }
 
     return (
-        <View style={styles.container}>
-            <Text style={styles.title}>Job Board</Text>
+        <View style={styles.container} testID="home-screen">
+            <Text style={styles.title} testID="home-title">Job Board</Text>
             <FilterBar />
             <FlatList
                 data={filteredJobs}
@@ -43,6 +43,7 @@ const HomeScreen: React.FC<Props> = ({ navigation }) => {
                 renderItem={({ item }) => (
                     <JobCard job={item} navigation={navigation} />
                 )}
+                testID="job-list"
             />
         </View>
     );

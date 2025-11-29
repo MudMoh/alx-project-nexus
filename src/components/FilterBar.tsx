@@ -7,12 +7,13 @@ const FilterBar: React.FC = () => {
     const { filters, setFilters } = useJobContext();
 
     return (
-        <View style={styles.container}>
+        <View style={styles.container} testID="filter-bar">
             <Picker
                 selectedValue={filters.category}
                 onValueChange={(value) => setFilters({ category: value })}
                 style={styles.picker}
                 accessibilityLabel="Filter by category"
+                testID="category-picker"
             >
                 <Picker.Item label="All Categories" value="" />
                 <Picker.Item label="Tech" value="Tech" />
@@ -26,6 +27,7 @@ const FilterBar: React.FC = () => {
                 onValueChange={(value) => setFilters({ location: value })}
                 style={styles.picker}
                 accessibilityLabel="Filter by location"
+                testID="location-picker"
             >
                 <Picker.Item label="All Locations" value="" />
                 <Picker.Item label="New York" value="New York" />
@@ -39,6 +41,7 @@ const FilterBar: React.FC = () => {
                 onValueChange={(value) => setFilters({ experience: value })}
                 style={styles.picker}
                 accessibilityLabel="Filter by experience level"
+                testID="experience-picker"
             >
                 <Picker.Item label="All Experiences" value="" />
                 <Picker.Item label="Entry" value="Entry" />

@@ -57,7 +57,7 @@ const ApplicationForm: React.FC<Props> = ({ job }) => {
     };
 
     return (
-        <ScrollView style={styles.container}>
+        <ScrollView style={styles.container} testID="application-form">
             <Text style={styles.title}>Apply for {job.title} at {job.company}</Text>
             <View style={styles.inputContainer}>
                 <Text style={styles.label}>Name</Text>
@@ -67,6 +67,7 @@ const ApplicationForm: React.FC<Props> = ({ job }) => {
                     onChangeText={setName}
                     placeholder="Enter your full name"
                     accessibilityLabel="Name input"
+                    testID="name-input"
                 />
                 {errors.name && <Text style={styles.error}>{errors.name}</Text>}
             </View>
@@ -80,6 +81,7 @@ const ApplicationForm: React.FC<Props> = ({ job }) => {
                     keyboardType="email-address"
                     autoCapitalize="none"
                     accessibilityLabel="Email input"
+                    testID="email-input"
                 />
                 {errors.email && <Text style={styles.error}>{errors.email}</Text>}
             </View>
@@ -94,6 +96,7 @@ const ApplicationForm: React.FC<Props> = ({ job }) => {
                     numberOfLines={6}
                     textAlignVertical="top"
                     accessibilityLabel="Resume input"
+                    testID="resume-input"
                 />
                 {errors.resume && <Text style={styles.error}>{errors.resume}</Text>}
             </View>
@@ -102,6 +105,7 @@ const ApplicationForm: React.FC<Props> = ({ job }) => {
                 onPress={handleSubmit}
                 accessibilityLabel="Submit application"
                 accessibilityHint="Submit your job application"
+                testID="submit-button"
             >
                 <Text style={styles.submitButtonText}>Submit Application</Text>
             </TouchableOpacity>

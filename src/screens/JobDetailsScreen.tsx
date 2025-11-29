@@ -15,8 +15,8 @@ const JobDetailsScreen: React.FC<Props> = ({ navigation, route }) => {
     const { job } = route.params;
 
     return (
-        <ScrollView style={styles.container}>
-            <Text style={styles.title}>{job.title}</Text>
+        <ScrollView style={styles.container} testID="job-details-screen">
+            <Text style={styles.title} testID="job-details-title">{job.title}</Text>
             <Text style={styles.company}>{job.company}</Text>
             <Text style={styles.location}>{job.location}</Text>
             <Text style={styles.category}>Category: {job.category}</Text>
@@ -27,6 +27,7 @@ const JobDetailsScreen: React.FC<Props> = ({ navigation, route }) => {
                 onPress={() => navigation.navigate('Apply', { job })}
                 accessibilityLabel="Apply for this job"
                 accessibilityHint="Navigate to application form"
+                testID="apply-now-button"
             >
                 <Text style={styles.applyButtonText}>Apply Now</Text>
             </TouchableOpacity>

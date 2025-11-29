@@ -23,8 +23,9 @@ const JobCard: React.FC<Props> = ({ job, navigation }) => {
             onPress={() => navigation.navigate('JobDetails', { job })}
             accessibilityLabel={`Job: ${job.title} at ${job.company}`}
             accessibilityHint="Tap to view job details"
+            testID={`job-card-${job.id}`}
         >
-            <Text style={styles.title}>{job.title}</Text>
+            <Text style={styles.title} testID={`job-title-${job.id}`}>{job.title}</Text>
             <Text style={styles.company}>{job.company}</Text>
             <Text style={styles.location}>{job.location}</Text>
         </TouchableOpacity>
