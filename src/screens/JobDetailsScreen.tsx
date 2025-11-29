@@ -1,7 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
 import { StackScreenProps } from '@react-navigation/stack';
+import MapView, { Marker } from 'react-native-maps';
+import * as Sharing from 'expo-sharing';
+import { Ionicons } from '@expo/vector-icons';
 import { Job } from '../types/job';
+import i18n from '../i18n';
+import { lightTheme } from '../theme';
 
 type RootStackParamList = {
     Home: undefined;
@@ -13,23 +18,68 @@ type Props = StackScreenProps<RootStackParamList, 'JobDetails'>;
 
 const JobDetailsScreen: React.FC<Props> = ({ navigation, route }) => {
     const { job } = route.params;
+    const [isFavorited, setIsFavorited] = useState(false);
+
+    const shareJob = async () => {
+        const message = `Check out this job: ${job.title} at ${job.company} in ${job.location}`;
+        if (await Sharing.isAvailableAsync()) {
+            await Sharing.shareAsync(message, { dialogTitle: 'Share Job' });
+        }
+    };
 
     return (
         <ScrollView style={styles.container} testID="job-details-screen">
-            <Text style={styles.title} testID="job-details-title">{job.title}</Text>
-            <Text style={styles.company}>{job.company}</Text>
-            <Text style={styles.location}>{job.location}</Text>
-            <Text style={styles.category}>Category: {job.category}</Text>
-            <Text style={styles.experience}>Experience: {job.experience}</Text>
+            <View style={styles.header}>
+                <Text style={styles.title} testID="job-details-title">{job.title}</Text>
+                <TouchableOpacity onPress={() => setIsFavorited(!isFavorited)}>
+                    <Ionicons name={isFavorited ? "heart" : "heart-outline"} size={24} color={lightTheme.colors.primary} />
+                </TouchableOpacity>
+            </View>
+            <View style={styles.section}>
+                <Ionicons name="business" size={20} color={lightTheme.colors.secondary} />
+                <Text style={styles.company}>{job.company}</Text>
+            </View>
+            <View style={styles.section}>
+                <Ionicons name="location" size={20} color={lightTheme.colors.secondary} />
+                <Text style={styles.location}>{job.location}</Text>
+            </View>
+            <View style={styles.section}>
+                <Ionicons name="briefcase" size={20} color={lightTheme.colors.secondary} />
+                <Text style={styles.category}>{(i18n as any).t('category')}: {job.category}</Text>
+            </View>
+            <View style={styles.section}>
+                <Ionicons name="school" size={20} color={lightTheme.colors.secondary} />
+                <Text style={styles.experience}>{(i18n as any).t('experience')}: {job.experience}</Text>
+            </View>
             <Text style={styles.description}>{job.description}</Text>
+            <View style={styles.section}>
+                <Text style={styles.requirements}>{(i18n as any).t('requirements')}: Bachelor's degree, 2+ years experience</Text>
+            </View>
+            <View style={styles.mapContainer}>
+                <MapView
+                    style={styles.map}
+                    initialRegion={{
+                        latitude: -1.2864, // Nairobi coordinates as example
+                        longitude: 36.8172,
+                        latitudeDelta: 0.0922,
+                        longitudeDelta: 0.0421,
+                    }}
+                >
+                    <Marker coordinate={{ latitude: -1.2864, longitude: 36.8172 }} title={job.company} />
+                </MapView>
+            </View>
+            <TouchableOpacity style={styles.shareButton} onPress={shareJob}>
+                <Ionicons name="share" size={20} />
+                <Text>{(i18n as any).t('shareJob')}</Text>
+            </TouchableOpacity>
             <TouchableOpacity
                 style={styles.applyButton}
                 onPress={() => navigation.navigate('Apply', { job })}
-                accessibilityLabel="Apply for this job"
-                accessibilityHint="Navigate to application form"
+                accessibilityLabel={(i18n as any).t('applyForJob')}
+                accessibilityHint={(i18n as any).t('navigateToApplication')}
                 testID="apply-now-button"
             >
-                <Text style={styles.applyButtonText}>Apply Now</Text>
+                <Text style={styles.applyButtonText}>{(i18n as any).t('applyNow')}</Text>
             </TouchableOpacity>
         </ScrollView>
     );
@@ -40,36 +90,68 @@ const styles = StyleSheet.create({
         flex: 1,
         padding: 16,
     },
+    header: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        marginBottom: 16,
+    },
     title: {
         fontSize: 24,
         fontWeight: 'bold',
-        marginBottom: 8,
+        flex: 1,
+    },
+    section: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        marginBottom: 12,
     },
     company: {
         fontSize: 20,
-        color: '#666',
-        marginBottom: 4,
+        color: lightTheme.colors.textSecondary,
+        marginLeft: 8,
     },
     location: {
         fontSize: 18,
-        color: '#999',
-        marginBottom: 16,
+        color: lightTheme.colors.textSecondary,
+        marginLeft: 8,
     },
     category: {
         fontSize: 16,
-        marginBottom: 4,
+        marginLeft: 8,
     },
     experience: {
         fontSize: 16,
-        marginBottom: 16,
+        marginLeft: 8,
     },
     description: {
         fontSize: 16,
         lineHeight: 24,
-        marginBottom: 32,
+        marginBottom: 16,
+    },
+    requirements: {
+        fontSize: 16,
+        fontStyle: 'italic',
+    },
+    mapContainer: {
+        height: 200,
+        marginBottom: 16,
+        borderRadius: 8,
+        overflow: 'hidden',
+    },
+    map: {
+        flex: 1,
+    },
+    shareButton: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        marginBottom: 16,
+        padding: 12,
+        backgroundColor: lightTheme.colors.surface,
+        borderRadius: 8,
     },
     applyButton: {
-        backgroundColor: '#007bff',
+        backgroundColor: lightTheme.colors.primary,
         padding: 16,
         borderRadius: 8,
         alignItems: 'center',
