@@ -5,7 +5,7 @@ import MapView, { Marker } from 'react-native-maps';
 import * as Sharing from 'expo-sharing';
 import { Ionicons } from '@expo/vector-icons';
 import { Job } from '../types/job';
-import i18n from '../i18n';
+import strings from '../i18n';
 import { lightTheme } from '../theme';
 
 type RootStackParamList = {
@@ -45,15 +45,15 @@ const JobDetailsScreen: React.FC<Props> = ({ navigation, route }) => {
             </View>
             <View style={styles.section}>
                 <Ionicons name="briefcase" size={20} color={lightTheme.colors.secondary} />
-                <Text style={styles.category}>{(i18n as any).t('category')}: {job.category}</Text>
+                <Text style={styles.category}>{strings.category}: {job.category}</Text>
             </View>
             <View style={styles.section}>
                 <Ionicons name="school" size={20} color={lightTheme.colors.secondary} />
-                <Text style={styles.experience}>{(i18n as any).t('experience')}: {job.experience}</Text>
+                <Text style={styles.experience}>{strings.experience}: {job.experience}</Text>
             </View>
             <Text style={styles.description}>{job.description}</Text>
             <View style={styles.section}>
-                <Text style={styles.requirements}>{(i18n as any).t('requirements')}: Bachelor's degree, 2+ years experience</Text>
+                <Text style={styles.requirements}>{strings.requirements}: Bachelor's degree, 2+ years experience</Text>
             </View>
             <View style={styles.mapContainer}>
                 <MapView
@@ -70,16 +70,16 @@ const JobDetailsScreen: React.FC<Props> = ({ navigation, route }) => {
             </View>
             <TouchableOpacity style={styles.shareButton} onPress={shareJob}>
                 <Ionicons name="share" size={20} />
-                <Text>{(i18n as any).t('shareJob')}</Text>
+                <Text>{strings.shareJob}</Text>
             </TouchableOpacity>
             <TouchableOpacity
                 style={styles.applyButton}
                 onPress={() => navigation.navigate('Apply', { job })}
-                accessibilityLabel={(i18n as any).t('applyForJob')}
-                accessibilityHint={(i18n as any).t('navigateToApplication')}
+                accessibilityLabel={strings.applyForJob}
+                accessibilityHint={strings.navigateToApplication}
                 testID="apply-now-button"
             >
-                <Text style={styles.applyButtonText}>{(i18n as any).t('applyNow')}</Text>
+                <Text style={styles.applyButtonText}>{strings.applyNow}</Text>
             </TouchableOpacity>
         </ScrollView>
     );
