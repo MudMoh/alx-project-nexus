@@ -7,6 +7,10 @@ import { Job } from '../../types/job';
 const mockAlert = jest.fn();
 Alert.alert = mockAlert;
 
+const mockNavigation = {
+    navigate: jest.fn(),
+} as any;
+
 const mockJob: Job = {
     id: 1,
     title: 'Software Engineer',
@@ -23,7 +27,7 @@ describe('ApplicationForm', () => {
     });
 
     it('renders inputs correctly', () => {
-        const { getByLabelText } = render(<ApplicationForm job={mockJob} />);
+        const { getByLabelText } = render(<ApplicationForm job={mockJob} navigation={mockNavigation} />);
 
         expect(getByLabelText('Name input')).toBeTruthy();
         expect(getByLabelText('Email input')).toBeTruthy();
@@ -32,7 +36,7 @@ describe('ApplicationForm', () => {
     });
 
     it('shows validation errors on submit with empty fields', () => {
-        const { getByLabelText, getByText } = render(<ApplicationForm job={mockJob} />);
+        const { getByLabelText, getByText } = render(<ApplicationForm job={mockJob} navigation={mockNavigation} />);
 
         const submitButton = getByLabelText('Submit application');
         fireEvent.press(submitButton);
@@ -43,7 +47,7 @@ describe('ApplicationForm', () => {
     });
 
     it('shows email validation error on invalid email', () => {
-        const { getByLabelText, getByText } = render(<ApplicationForm job={mockJob} />);
+        const { getByLabelText, getByText } = render(<ApplicationForm job={mockJob} navigation={mockNavigation} />);
 
         fireEvent.changeText(getByLabelText('Name input'), 'John Doe');
         fireEvent.changeText(getByLabelText('Email input'), 'invalid-email');
@@ -56,7 +60,7 @@ describe('ApplicationForm', () => {
     });
 
     it('submits successfully with valid data', () => {
-        const { getByLabelText } = render(<ApplicationForm job={mockJob} />);
+        const { getByLabelText } = render(<ApplicationForm job={mockJob} navigation={mockNavigation} />);
 
         fireEvent.changeText(getByLabelText('Name input'), 'John Doe');
         fireEvent.changeText(getByLabelText('Email input'), 'john@example.com');
@@ -66,5 +70,6 @@ describe('ApplicationForm', () => {
         fireEvent.press(submitButton);
 
         expect(mockAlert).toHaveBeenCalledWith('Success', 'Your application has been submitted successfully!');
+        expect(mockNavigation.navigate).toHaveBeenCalledWith('Home');
     });
 });

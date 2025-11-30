@@ -17,7 +17,7 @@ const ApplyScreen: React.FC<Props> = ({ navigation, route }) => {
 
     return (
         <View style={styles.container} testID="apply-screen">
-            <ApplicationForm job={job} />
+            <ApplicationForm job={job} navigation={navigation} />
         </View>
     );
 };
