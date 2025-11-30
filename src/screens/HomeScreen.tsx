@@ -7,7 +7,7 @@ import JobCard from '../components/JobCard';
 import SkeletonLoader from '../components/SkeletonLoader';
 import { Job } from '../types/job';
 import strings from '../i18n';
-import logo from '../../assets/nexus-logo.png';
+import logo from '../assets/nexus-logo.png';
 
 type RootStackParamList = {
     Home: undefined;
