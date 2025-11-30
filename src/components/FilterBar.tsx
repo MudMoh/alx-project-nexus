@@ -59,6 +59,10 @@ const FilterBar: React.FC = () => {
                 <Picker.Item label="Kampala" value="Kampala" />
                 <Picker.Item label="Dakar" value="Dakar" />
                 <Picker.Item label="Casablanca" value="Casablanca" />
+                <Picker.Item label="London" value="London" />
+                <Picker.Item label="New York" value="New York" />
+                <Picker.Item label="Berlin" value="Berlin" />
+                <Picker.Item label="Sydney" value="Sydney" />
             </Picker>
             <Picker
                 selectedValue={filters.experience}
