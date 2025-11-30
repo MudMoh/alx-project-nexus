@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Alert } from 'react-native';
 import { StackScreenProps } from '@react-navigation/stack';
 import MapView, { Marker } from 'react-native-maps';
 import * as Sharing from 'expo-sharing';
@@ -7,6 +7,8 @@ import { Ionicons } from '@expo/vector-icons';
 import { Job } from '../types/job';
 import strings from '../i18n';
 import { lightTheme } from '../theme';
+
+const APP_URL = 'https://jobboardapp.com';
 
 type RootStackParamList = {
     Home: undefined;
@@ -21,9 +23,11 @@ const JobDetailsScreen: React.FC<Props> = ({ navigation, route }) => {
     const [isFavorited, setIsFavorited] = useState(false);
 
     const shareJob = async () => {
-        const message = `Check out this job: ${job.title} at ${job.company} in ${job.location}`;
+        const message = `Check out this job: ${job.title} at ${job.company} - ${APP_URL}/job/${job.id}`;
         if (await Sharing.isAvailableAsync()) {
             await Sharing.shareAsync(message, { dialogTitle: 'Share Job' });
+        } else {
+            Alert.alert('Sharing Unavailable', 'Sharing is not supported on this device.');
         }
     };
 
