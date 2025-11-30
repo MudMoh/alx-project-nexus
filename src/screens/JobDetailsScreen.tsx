@@ -26,7 +26,7 @@ const JobDetailsScreen: React.FC<Props> = ({ navigation, route }) => {
         const message = `Check out this job: ${job.title} at ${job.company} - ${APP_URL}/job/${job.id}`;
         try {
             if (await Sharing.isAvailableAsync()) {
-                await Sharing.shareAsync(message, { dialogTitle: 'Share Job' });
+                await Sharing.shareAsync({ message });
             } else {
                 Alert.alert('Sharing Unavailable', 'Sharing is not supported on this device.');
             }
