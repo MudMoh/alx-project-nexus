@@ -1,9 +1,5 @@
 # Job Board App
 
-[![Expo](https://img.shields.io/badge/Expo-000020?style=for-the-badge&logo=expo&logoColor=white)](https://expo.dev/)
-[![React Native](https://img.shields.io/badge/React_Native-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)](https://reactnative.dev/)
-[![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
-
 A comprehensive React Native mobile application built with Expo that serves as an interactive job board platform. Users can explore job opportunities, apply advanced filters, view detailed job information, and submit applications seamlessly.
 
 ## 📋 Table of Contents
@@ -16,7 +12,7 @@ A comprehensive React Native mobile application built with Expo that serves as a
 - [Contributing](#contributing)
 - [Testing](#testing)
 - [Deployment](#deployment)
-- [License](#license)
+
 
 ## 🎯 Overview
 
@@ -48,45 +44,34 @@ The app uses simulated job data for development purposes and allows users to fil
 - **Real-time Validation**: Immediate feedback on form inputs
 - **Success/Error Handling**: Clear user feedback for submission status
 
-### 🌐 Additional Features
-- **Internationalization**: Multi-language support with i18n
-- **Offline Capability**: Basic offline data handling
-- **Performance Optimized**: Lazy loading and efficient rendering
-
 ## 🏗️ App Evolution
 
 The development of this job board app followed a structured, iterative approach aligned with mobile development best practices:
 
-### Phase 1: Planning and Setup (Weeks 1-2)
+### Phase 1: Planning and Setup
 - **Requirement Analysis**: Defined core features and user stories
 - **Architecture Design**: Established modular structure with components, screens, hooks, and utils
 - **Project Initialization**: Set up Expo project with TypeScript, navigation, and essential dependencies
 - **Deliverable**: Functional project skeleton with basic navigation
 
-### Phase 2: Core Development (Weeks 3-8)
+### Phase 2: Core Development
 - **Data Simulation**: Implemented mock data handling with error handling and loading states
 - **State Management**: Utilized Context API for efficient filter state management
 - **UI Components**: Built reusable components (JobCard, FilterBar, ApplicationForm) with responsive design
 - **Form Implementation**: Created accessible job application forms with validation
 - **Deliverable**: Fully functional app with all core features implemented
 
-### Phase 3: Testing and Optimization (Weeks 9-10)
+### Phase 3: Testing and Optimization
 - **Unit Testing**: Jest tests for components, hooks, and utilities (targeting 80%+ coverage)
 - **Integration Testing**: React Native Testing Library for component interactions
 - **End-to-End Testing**: Detox for full user flow simulation
 - **Performance Optimization**: Image lazy loading, bundle optimization, and accessibility audits
 - **Deliverable**: Tested, optimized app ready for review
 
-### Phase 4: Deployment and Review (Weeks 11-12)
+### Phase 4: Deployment and Review
 - **App Store Deployment**: Built and submitted via Expo Application Services (EAS)
 - **Code Review**: Final documentation updates and user acceptance testing
 - **Deliverable**: Live app with demo video and presentation materials
-
-### Key Milestones
-- **Milestone 1**: Project setup complete with approved wireframes
-- **Milestone 2**: Data simulation functional with working filters and forms
-- **Milestone 3**: All tests passing with performance benchmarks met
-- **Milestone 4**: App deployed to stores with complete documentation
 
 ## 🚀 Setup Instructions
 
@@ -163,19 +148,6 @@ We welcome contributions! Please follow these guidelines:
    ```
 6. **Push and create a Pull Request**
 
-### Code Standards
-
-- **TypeScript**: Strict type checking enabled
-- **ESLint**: Follow Airbnb style guide
-- **Prettier**: Automatic code formatting
-- **Conventional Commits**: Use semantic commit messages
-
-### Testing Requirements
-
-- Maintain 80%+ test coverage
-- All tests must pass before merging
-- Include both unit and integration tests
-
 ## 🧪 Testing
 
 ### Running Tests
@@ -216,16 +188,8 @@ npm run detox:test
    eas submit --platform ios
    ```
 
-### Environment Variables
-
-Ensure production environment variables are set in EAS dashboard.
-
-## 📄 License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
 ---
 
 **Built with ❤️ as part of ALX ProDev Frontend Engineering Program**
 
-For questions or support, please open an issue on GitHub.
+
