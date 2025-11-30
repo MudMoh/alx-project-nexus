@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, FlatList, ActivityIndicator, StyleSheet, RefreshControl } from 'react-native';
+import { View, Text, FlatList, ActivityIndicator, StyleSheet, RefreshControl, Image } from 'react-native';
 import { StackScreenProps } from '@react-navigation/stack';
 import { useJobContext } from '../context/JobContext';
 import FilterBar from '../components/FilterBar';
@@ -7,6 +7,7 @@ import JobCard from '../components/JobCard';
 import SkeletonLoader from '../components/SkeletonLoader';
 import { Job } from '../types/job';
 import strings from '../i18n';
+import logo from '../../assets/nexus-logo.png';
 
 type RootStackParamList = {
     Home: undefined;
@@ -44,6 +45,7 @@ const HomeScreen: React.FC<Props> = ({ navigation }) => {
 
     return (
         <View style={styles.container} testID="home-screen">
+            <Image source={logo} style={styles.logo} />
             <Text style={styles.title} testID="home-title">{strings.jobBoard}</Text>
             <FilterBar />
             <FlatList
@@ -82,6 +84,12 @@ const styles = StyleSheet.create({
     title: {
         fontSize: 24,
         fontWeight: 'bold',
+        marginBottom: 16,
+    },
+    logo: {
+        width: 100,
+        height: 100,
+        alignSelf: 'center',
         marginBottom: 16,
     },
 });
