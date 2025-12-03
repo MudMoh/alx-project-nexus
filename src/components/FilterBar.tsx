@@ -3,7 +3,7 @@ import { View, StyleSheet, TextInput, TouchableOpacity, Text } from 'react-nativ
 import { Picker } from '@react-native-picker/picker';
 import * as Location from 'expo-location';
 import { useJobContext } from '../context/JobContext';
-import i18n from '../i18n';
+import strings from '../i18n';
 
 const FilterBar: React.FC = () => {
     const { filters, setFilters } = useJobContext();
@@ -21,21 +21,21 @@ const FilterBar: React.FC = () => {
         <View style={styles.container} testID="filter-bar">
             <TextInput
                 style={styles.searchInput}
-                placeholder={(i18n as any).t('searchJobs')}
+                placeholder={strings.searchJobs}
                 value={filters.search || ''}
                 onChangeText={(value) => setFilters({ search: value })}
-                accessibilityLabel={(i18n as any).t('searchJobsLabel')}
-                accessibilityHint={(i18n as any).t('enterKeywords')}
+                accessibilityLabel={strings.searchJobsLabel}
+                accessibilityHint={strings.enterKeywords}
                 testID="search-input"
             />
             <Picker
                 selectedValue={filters.category}
                 onValueChange={(value) => setFilters({ category: value })}
                 style={styles.picker}
-                accessibilityLabel={(i18n as any).t('filterByCategory')}
+                accessibilityLabel={strings.filterByCategory}
                 testID="category-picker"
             >
-                <Picker.Item label={(i18n as any).t('allCategories')} value="" />
+                <Picker.Item label={strings.allCategories} value="" />
                 <Picker.Item label="Tech" value="Tech" />
                 <Picker.Item label="Finance" value="Finance" />
                 <Picker.Item label="Healthcare" value="Healthcare" />
@@ -46,10 +46,10 @@ const FilterBar: React.FC = () => {
                 selectedValue={filters.location}
                 onValueChange={(value) => setFilters({ location: value })}
                 style={styles.picker}
-                accessibilityLabel={(i18n as any).t('filterByLocation')}
+                accessibilityLabel={strings.filterByLocation}
                 testID="location-picker"
             >
-                <Picker.Item label={(i18n as any).t('allLocations')} value="" />
+                <Picker.Item label={strings.allLocations} value="" />
                 <Picker.Item label="Nairobi" value="Nairobi" />
                 <Picker.Item label="Lagos" value="Lagos" />
                 <Picker.Item label="Cape Town" value="Cape Town" />
@@ -59,15 +59,19 @@ const FilterBar: React.FC = () => {
                 <Picker.Item label="Kampala" value="Kampala" />
                 <Picker.Item label="Dakar" value="Dakar" />
                 <Picker.Item label="Casablanca" value="Casablanca" />
+                <Picker.Item label="London" value="London" />
+                <Picker.Item label="New York" value="New York" />
+                <Picker.Item label="Berlin" value="Berlin" />
+                <Picker.Item label="Sydney" value="Sydney" />
             </Picker>
             <Picker
                 selectedValue={filters.experience}
                 onValueChange={(value) => setFilters({ experience: value })}
                 style={styles.picker}
-                accessibilityLabel={(i18n as any).t('filterByExperience')}
+                accessibilityLabel={strings.filterByExperience}
                 testID="experience-picker"
             >
-                <Picker.Item label={(i18n as any).t('allExperiences')} value="" />
+                <Picker.Item label={strings.allExperiences} value="" />
                 <Picker.Item label="Entry" value="Entry" />
                 <Picker.Item label="Mid" value="Mid" />
                 <Picker.Item label="Senior" value="Senior" />
@@ -75,7 +79,7 @@ const FilterBar: React.FC = () => {
                 <Picker.Item label="Executive" value="Executive" />
             </Picker>
             <TouchableOpacity onPress={enableNearby} style={styles.nearbyButton}>
-                <Text>{nearby ? (i18n as any).t('nearbyEnabled') : (i18n as any).t('nearbyJobs')}</Text>
+                <Text>{nearby ? strings.nearbyEnabled : strings.nearbyJobs}</Text>
             </TouchableOpacity>
         </View>
     );

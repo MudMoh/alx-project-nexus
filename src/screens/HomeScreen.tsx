@@ -6,7 +6,7 @@ import FilterBar from '../components/FilterBar';
 import JobCard from '../components/JobCard';
 import SkeletonLoader from '../components/SkeletonLoader';
 import { Job } from '../types/job';
-import i18n from '../i18n';
+import strings from '../i18n';
 
 type RootStackParamList = {
     Home: undefined;
@@ -44,7 +44,7 @@ const HomeScreen: React.FC<Props> = ({ navigation }) => {
 
     return (
         <View style={styles.container} testID="home-screen">
-            <Text style={styles.title} testID="home-title">{(i18n as any).t('jobBoard')}</Text>
+            <Text style={styles.title} testID="home-title">{strings.jobBoard}</Text>
             <FilterBar />
             <FlatList
                 data={filteredJobs}
@@ -62,7 +62,7 @@ const HomeScreen: React.FC<Props> = ({ navigation }) => {
                 })}
                 refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}
                 ListFooterComponent={loading ? <SkeletonLoader /> : null}
-                ListEmptyComponent={<Text>{(i18n as any).t('noJobsFound')}</Text>}
+                ListEmptyComponent={<Text>{strings.noJobsFound}</Text>}
                 testID="job-list"
             />
         </View>

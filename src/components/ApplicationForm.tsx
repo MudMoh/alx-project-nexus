@@ -1,13 +1,21 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert, ScrollView, ActivityIndicator } from 'react-native';
+import { StackNavigationProp } from '@react-navigation/stack';
 import * as DocumentPicker from 'expo-document-picker';
 import { Job } from '../types/job';
 
+type RootStackParamList = {
+    Home: undefined;
+    JobDetails: { job: Job };
+    Apply: { job: Job };
+};
+
 interface Props {
     job: Job;
+    navigation: StackNavigationProp<RootStackParamList, 'Apply'>;
 }
 
-const ApplicationForm: React.FC<Props> = ({ job }) => {
+const ApplicationForm: React.FC<Props> = ({ job, navigation }) => {
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [resume, setResume] = useState('');
@@ -62,6 +70,7 @@ const ApplicationForm: React.FC<Props> = ({ job }) => {
             // Simulate API call
             setTimeout(() => {
                 Alert.alert('Success', 'Your application has been submitted successfully!');
+                navigation.navigate('Home');
                 setSubmitting(false);
                 // Reset form
                 setName('');
