@@ -18,6 +18,28 @@ type RootStackParamList = {
 
 type Props = StackScreenProps<RootStackParamList, 'JobDetails'>;
 
+// Component to render text with Markdown-like formatting
+const MarkdownText: React.FC<{ text: string }> = ({ text }) => {
+    const parts = text.split(/(\*\*[^*]+\*\*)/g);
+
+    return (
+        <Text style={styles.description}>
+            {parts.map((part, index) => {
+                if (part.startsWith('**') && part.endsWith('**')) {
+                    // This is bold text
+                    return (
+                        <Text key={index} style={styles.boldText}>
+                            {part.slice(2, -2)}
+                        </Text>
+                    );
+                }
+                // Regular text
+                return <Text key={index}>{part}</Text>;
+            })}
+        </Text>
+    );
+};
+
 const JobDetailsScreen: React.FC<Props> = ({ navigation, route }) => {
     const { job } = route.params;
     const [isFavorited, setIsFavorited] = useState(false);
@@ -59,7 +81,9 @@ const JobDetailsScreen: React.FC<Props> = ({ navigation, route }) => {
                 <Ionicons name="school" size={20} color={lightTheme.colors.secondary} />
                 <Text style={styles.experience}>{strings.experience}: {job.experience}</Text>
             </View>
-            <Text style={styles.description}>{job.description}</Text>
+            <View style={styles.descriptionContainer}>
+                <MarkdownText text={job.description} />
+            </View>
             <View style={styles.section}>
                 <Text style={styles.requirements}>{strings.requirements}: Bachelor's degree, 2+ years experience</Text>
             </View>
@@ -135,6 +159,11 @@ const styles = StyleSheet.create({
     description: {
         fontSize: 16,
         lineHeight: 24,
+    },
+    boldText: {
+        fontWeight: 'bold',
+    },
+    descriptionContainer: {
         marginBottom: 16,
     },
     requirements: {
