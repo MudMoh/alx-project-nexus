@@ -2,14 +2,7 @@
 
 # dependencies
 node_modules/
-# md files
-development-plan.md
-project-nexus-prodev-FE.md
-architecture.md
-slide-deck-outline.md
-video-script.md
-ui-ux-improvements.md
-ui-ux-african-improvements.md
+md-files/
 # Expo
 .expo/
 dist/
