@@ -46,3 +46,9 @@ yarn-error.*
 # generated native folders
 /ios
 /android
+
+# job related files
+convert-jobs.js
+generate-jobs.js
+jobs.json
+job-board-app/
