@@ -697,5 +697,4 @@ The Senior Financial Analyst will conduct in-depth financial analysis, prepare i
 Join FinancePlus and contribute to shaping investment strategies in Japan's dynamic financial markets!`,
         },
     ];
-}
 };
