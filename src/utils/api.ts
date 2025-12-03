@@ -1,35 +1,17 @@
-import axios from 'axios';
 import { Job } from '../types/job';
 
-const API_BASE_URL = 'https://jsonplaceholder.typicode.com';
-
 export const fetchJobs = async (): Promise<Job[]> => {
-    try {
-        const response = await axios.get(`${API_BASE_URL}/posts`);
-        const posts = response.data;
-
-        // Adapt posts to Job structure
-        return posts.map((post: any, index: number) => ({
-            id: post.id,
-            title: post.title,
-            company: `Company ${post.id}`,
-            location: ['New York', 'San Francisco', 'London', 'Berlin', 'Tokyo'][index % 5],
-            category: ['Tech', 'Finance', 'Healthcare', 'Education', 'Marketing'][index % 5],
-            experience: ['Entry', 'Mid', 'Senior', 'Lead', 'Executive'][index % 5],
-            description: post.body,
-        }));
-    } catch (error) {
-        console.error('Failed to fetch jobs from API, using mock data:', error);
-        // Fallback to mock data
-        return [
-            {
-                id: 1,
-                title: 'Senior Frontend Developer',
-                company: 'TechNova Solutions',
-                location: 'San Francisco',
-                category: 'Tech',
-                experience: 'Senior',
-                description: `TechNova Solutions is a leading technology company specializing in innovative web and mobile applications. We are seeking a talented Senior Frontend Developer to join our dynamic team.
+    // Using mock data to avoid network errors and CORS issues
+    console.log('Loading 15 job listings from mock data...');
+    return [
+        {
+            id: 1,
+            title: 'Senior Frontend Developer',
+            company: 'TechNova Solutions',
+            location: 'San Francisco',
+            category: 'Tech',
+            experience: 'Senior',
+            description: `TechNova Solutions is a leading technology company specializing in innovative web and mobile applications. We are seeking a talented Senior Frontend Developer to join our dynamic team.
 
 **Job Summary:**
 As a Senior Frontend Developer, you will be responsible for designing, developing, and maintaining high-quality user interfaces for our web applications. You will work closely with our design and backend teams to create exceptional user experiences.
@@ -65,15 +47,15 @@ As a Senior Frontend Developer, you will be responsible for designing, developin
 - Opportunity to work on cutting-edge projects
 
 To apply, please submit your resume and portfolio through our application portal.`,
-            },
-            {
-                id: 2,
-                title: 'Backend Engineer',
-                company: 'CodeMasters Inc.',
-                location: 'New York',
-                category: 'Tech',
-                experience: 'Mid',
-                description: `CodeMasters Inc. is a fast-growing software development company focused on building robust backend systems for enterprise clients. We're looking for a skilled Backend Engineer to help scale our infrastructure.
+        },
+        {
+            id: 2,
+            title: 'Backend Engineer',
+            company: 'CodeMasters Inc.',
+            location: 'New York',
+            category: 'Tech',
+            experience: 'Mid',
+            description: `CodeMasters Inc. is a fast-growing software development company focused on building robust backend systems for enterprise clients. We're looking for a skilled Backend Engineer to help scale our infrastructure.
 
 **Job Summary:**
 The Backend Engineer will design, develop, and maintain server-side applications and APIs. You will work on high-performance systems that serve millions of users daily.
@@ -111,15 +93,15 @@ The Backend Engineer will design, develop, and maintain server-side applications
 - Team-building events and company retreats
 
 Join our team and help build the future of enterprise software!`,
-            },
-            {
-                id: 3,
-                title: 'Full Stack Developer',
-                company: 'WebWorks Ltd.',
-                location: 'London',
-                category: 'Tech',
-                experience: 'Entry',
-                description: `WebWorks Ltd. is an innovative digital agency specializing in custom web solutions for startups and established businesses. We're seeking a motivated Full Stack Developer to join our growing development team.
+        },
+        {
+            id: 3,
+            title: 'Full Stack Developer',
+            company: 'WebWorks Ltd.',
+            location: 'London',
+            category: 'Tech',
+            experience: 'Entry',
+            description: `WebWorks Ltd. is an innovative digital agency specializing in custom web solutions for startups and established businesses. We're seeking a motivated Full Stack Developer to join our growing development team.
 
 **Job Summary:**
 As a Full Stack Developer, you'll work on both frontend and backend components of web applications, contributing to the entire development lifecycle from concept to deployment.
@@ -156,15 +138,15 @@ As a Full Stack Developer, you'll work on both frontend and backend components o
 - Regular team social events
 
 If you're passionate about creating amazing web experiences, we'd love to hear from you!`,
-            },
-            {
-                id: 4,
-                title: 'DevOps Engineer',
-                company: 'CloudTech GmbH',
-                location: 'Berlin',
-                category: 'Tech',
-                experience: 'Senior',
-                description: `CloudTech GmbH is a leading cloud infrastructure provider serving clients across Europe. We are looking for an experienced DevOps Engineer to help us maintain and scale our cloud platforms.
+        },
+        {
+            id: 4,
+            title: 'DevOps Engineer',
+            company: 'CloudTech GmbH',
+            location: 'Berlin',
+            category: 'Tech',
+            experience: 'Senior',
+            description: `CloudTech GmbH is a leading cloud infrastructure provider serving clients across Europe. We are looking for an experienced DevOps Engineer to help us maintain and scale our cloud platforms.
 
 **Job Summary:**
 The DevOps Engineer will be responsible for designing, implementing, and maintaining our CI/CD pipelines, infrastructure, and deployment processes. You'll work closely with development teams to ensure reliable and efficient software delivery.
@@ -204,15 +186,15 @@ The DevOps Engineer will be responsible for designing, implementing, and maintai
 - Opportunity for career growth and advancement
 
 Join CloudTech and help shape the future of cloud infrastructure in Europe!`,
-            },
-            {
-                id: 5,
-                title: 'Product Manager',
-                company: 'InnovateCorp',
-                location: 'Tokyo',
-                category: 'Tech',
-                experience: 'Lead',
-                description: `InnovateCorp is a pioneering technology company developing AI-powered solutions for enterprise clients. We're seeking a Lead Product Manager to drive product strategy and execution for our flagship products.
+        },
+        {
+            id: 5,
+            title: 'Product Manager',
+            company: 'InnovateCorp',
+            location: 'Tokyo',
+            category: 'Tech',
+            experience: 'Lead',
+            description: `InnovateCorp is a pioneering technology company developing AI-powered solutions for enterprise clients. We're seeking a Lead Product Manager to drive product strategy and execution for our flagship products.
 
 **Job Summary:**
 As a Lead Product Manager, you will own the product vision, strategy, and roadmap. You'll work cross-functionally with engineering, design, marketing, and sales teams to deliver innovative products that solve real customer problems.
@@ -252,15 +234,15 @@ As a Lead Product Manager, you will own the product vision, strategy, and roadma
 - Diverse, international team
 
 If you're ready to lead product innovation in one of Japan's most dynamic tech companies, apply now!`,
-            },
-            {
-                id: 6,
-                title: 'UX/UI Designer',
-                company: 'DesignHub',
-                location: 'San Francisco',
-                category: 'Tech',
-                experience: 'Mid',
-                description: `DesignHub is a creative design agency specializing in user-centered design for web and mobile applications. We're looking for a talented UX/UI Designer to join our collaborative team.
+        },
+        {
+            id: 6,
+            title: 'UX/UI Designer',
+            company: 'DesignHub',
+            location: 'San Francisco',
+            category: 'Tech',
+            experience: 'Mid',
+            description: `DesignHub is a creative design agency specializing in user-centered design for web and mobile applications. We're looking for a talented UX/UI Designer to join our collaborative team.
 
 **Job Summary:**
 The UX/UI Designer will create intuitive and visually appealing user interfaces for our clients' digital products. You'll conduct user research, create wireframes and prototypes, and ensure exceptional user experiences.
@@ -299,15 +281,15 @@ The UX/UI Designer will create intuitive and visually appealing user interfaces 
 - Opportunity to work with diverse clients
 
 Join DesignHub and help create meaningful digital experiences that users love!`,
-            },
-            {
-                id: 7,
-                title: 'Data Scientist',
-                company: 'DataDriven Analytics',
-                location: 'New York',
-                category: 'Finance',
-                experience: 'Senior',
-                description: `DataDriven Analytics is a leading data science consultancy helping Fortune 500 companies unlock insights from their data. We're seeking a Senior Data Scientist to lead advanced analytics projects.
+        },
+        {
+            id: 7,
+            title: 'Data Scientist',
+            company: 'DataDriven Analytics',
+            location: 'New York',
+            category: 'Finance',
+            experience: 'Senior',
+            description: `DataDriven Analytics is a leading data science consultancy helping Fortune 500 companies unlock insights from their data. We're seeking a Senior Data Scientist to lead advanced analytics projects.
 
 **Job Summary:**
 As a Senior Data Scientist, you'll apply advanced statistical and machine learning techniques to solve complex business problems. You'll work with large datasets to develop predictive models and provide actionable insights.
@@ -339,22 +321,21 @@ As a Senior Data Scientist, you'll apply advanced statistical and machine learni
 **What We Offer:**
 - Competitive salary ($140,000 - $180,000)
 - Comprehensive benefits package
-- Flexible work arrangements
 - Professional development opportunities
 - Conference attendance and training budget
 - Collaborative work environment
 - Opportunity to work on diverse, high-impact projects
 
 Join our team of data science experts and make a real impact on business decisions!`,
-            },
-            {
-                id: 8,
-                title: 'Marketing Manager',
-                company: 'BrandBoost Agency',
-                location: 'London',
-                category: 'Marketing',
-                experience: 'Lead',
-                description: `BrandBoost Agency is a full-service marketing agency helping brands grow their digital presence. We're looking for a Lead Marketing Manager to oversee our client campaigns and drive strategic marketing initiatives.
+        },
+        {
+            id: 8,
+            title: 'Marketing Manager',
+            company: 'BrandBoost Agency',
+            location: 'London',
+            category: 'Marketing',
+            experience: 'Lead',
+            description: `BrandBoost Agency is a full-service marketing agency helping brands grow their digital presence. We're looking for a Lead Marketing Manager to oversee our client campaigns and drive strategic marketing initiatives.
 
 **Job Summary:**
 The Lead Marketing Manager will develop and execute comprehensive marketing strategies across digital channels. You'll lead a team of marketers and work closely with clients to achieve their business objectives.
@@ -392,15 +373,15 @@ The Lead Marketing Manager will develop and execute comprehensive marketing stra
 - Regular team events and client entertainment
 
 If you're passionate about driving brand growth and leading marketing teams, we'd love to hear from you!`,
-            },
-            {
-                id: 9,
-                title: 'Sales Representative',
-                company: 'SalesPro Solutions',
-                location: 'Berlin',
-                category: 'Finance',
-                experience: 'Entry',
-                description: `SalesPro Solutions is a B2B sales training and consulting company helping businesses improve their sales performance. We're seeking an enthusiastic Sales Representative to join our growing sales team.
+        },
+        {
+            id: 9,
+            title: 'Sales Representative',
+            company: 'SalesPro Solutions',
+            location: 'Berlin',
+            category: 'Finance',
+            experience: 'Entry',
+            description: `SalesPro Solutions is a B2B sales training and consulting company helping businesses improve their sales performance. We're seeking an enthusiastic Sales Representative to join our growing sales team.
 
 **Job Summary:**
 As a Sales Representative, you'll be responsible for generating new business opportunities and building relationships with potential clients. You'll represent our sales training programs and consulting services.
@@ -438,15 +419,15 @@ As a Sales Representative, you'll be responsible for generating new business opp
 - Supportive and collaborative team environment
 
 Join SalesPro and start your career in professional sales with unlimited earning potential!`,
-            },
-            {
-                id: 10,
-                title: 'HR Manager',
-                company: 'HealthFirst Corp',
-                location: 'Tokyo',
-                category: 'Healthcare',
-                experience: 'Executive',
-                description: `HealthFirst Corp is a leading healthcare provider with multiple hospitals and clinics across Japan. We're seeking an experienced HR Manager to lead our human resources initiatives and support our growing workforce.
+        },
+        {
+            id: 10,
+            title: 'HR Manager',
+            company: 'HealthFirst Corp',
+            location: 'Tokyo',
+            category: 'Healthcare',
+            experience: 'Executive',
+            description: `HealthFirst Corp is a leading healthcare provider with multiple hospitals and clinics across Japan. We're seeking an experienced HR Manager to lead our human resources initiatives and support our growing workforce.
 
 **Job Summary:**
 The HR Manager will oversee all aspects of human resources management, including recruitment, employee relations, performance management, and organizational development. You'll play a key role in fostering a positive work culture.
@@ -484,15 +465,15 @@ The HR Manager will oversee all aspects of human resources management, including
 - Opportunity to make a difference in healthcare
 
 Join HealthFirst and help us build a world-class healthcare workforce!`,
-            },
-            {
-                id: 11,
-                title: 'Software Engineer',
-                company: 'Tech Corp',
-                location: 'New York',
-                category: 'Tech',
-                experience: 'Mid',
-                description: `Tech Corp is an established technology company developing innovative software solutions for enterprise clients. We're looking for a skilled Software Engineer to join our development team.
+        },
+        {
+            id: 11,
+            title: 'Software Engineer',
+            company: 'Tech Corp',
+            location: 'New York',
+            category: 'Tech',
+            experience: 'Mid',
+            description: `Tech Corp is an established technology company developing innovative software solutions for enterprise clients. We're looking for a skilled Software Engineer to join our development team.
 
 **Job Summary:**
 As a Software Engineer, you'll design, develop, and maintain high-quality software applications. You'll work in an agile environment, collaborating with cross-functional teams to deliver scalable solutions.
@@ -530,15 +511,15 @@ As a Software Engineer, you'll design, develop, and maintain high-quality softwa
 - Opportunity to work on diverse projects
 
 Join Tech Corp and be part of building the future of enterprise software!`,
-            },
-            {
-                id: 12,
-                title: 'Data Analyst',
-                company: 'Data Inc',
-                location: 'San Francisco',
-                category: 'Finance',
-                experience: 'Entry',
-                description: `Data Inc is a data analytics company helping businesses make data-driven decisions. We're seeking a Data Analyst to join our analytics team and support our clients with actionable insights.
+        },
+        {
+            id: 12,
+            title: 'Data Analyst',
+            company: 'Data Inc',
+            location: 'San Francisco',
+            category: 'Finance',
+            experience: 'Entry',
+            description: `Data Inc is a data analytics company helping businesses make data-driven decisions. We're seeking a Data Analyst to join our analytics team and support our clients with actionable insights.
 
 **Job Summary:**
 The Data Analyst will collect, process, and analyze data to help organizations understand their performance and make informed decisions. You'll work with various data sources and tools to deliver meaningful reports.
@@ -576,15 +557,15 @@ The Data Analyst will collect, process, and analyze data to help organizations u
 - Diverse and inclusive workplace
 
 Start your career in data analytics with Data Inc and help businesses unlock the power of their data!`,
-            },
-            {
-                id: 13,
-                title: 'Registered Nurse',
-                company: 'MedCare Hospital',
-                location: 'London',
-                category: 'Healthcare',
-                experience: 'Mid',
-                description: `MedCare Hospital is a modern healthcare facility providing comprehensive medical services to our community. We're seeking compassionate Registered Nurses to join our dedicated healthcare team.
+        },
+        {
+            id: 13,
+            title: 'Registered Nurse',
+            company: 'MedCare Hospital',
+            location: 'London',
+            category: 'Healthcare',
+            experience: 'Mid',
+            description: `MedCare Hospital is a modern healthcare facility providing comprehensive medical services to our community. We're seeking compassionate Registered Nurses to join our dedicated healthcare team.
 
 **Job Summary:**
 As a Registered Nurse, you'll provide high-quality patient care in a fast-paced hospital environment. You'll work collaboratively with physicians and healthcare professionals to ensure optimal patient outcomes.
@@ -622,15 +603,15 @@ As a Registered Nurse, you'll provide high-quality patient care in a fast-paced 
 - Career advancement opportunities
 
 Join MedCare Hospital and make a difference in patients' lives every day!`,
-            },
-            {
-                id: 14,
-                title: 'Elementary School Teacher',
-                company: 'EduFuture Academy',
-                location: 'Berlin',
-                category: 'Education',
-                experience: 'Entry',
-                description: `EduFuture Academy is an innovative international school committed to providing exceptional education to young learners. We're seeking passionate Elementary School Teachers to inspire and educate our students.
+        },
+        {
+            id: 14,
+            title: 'Elementary School Teacher',
+            company: 'EduFuture Academy',
+            location: 'Berlin',
+            category: 'Education',
+            experience: 'Entry',
+            description: `EduFuture Academy is an innovative international school committed to providing exceptional education to young learners. We're seeking passionate Elementary School Teachers to inspire and educate our students.
 
 **Job Summary:**
 The Elementary School Teacher will create engaging learning experiences for children aged 6-11. You'll implement curriculum, assess student progress, and foster a positive learning environment.
@@ -668,15 +649,15 @@ The Elementary School Teacher will create engaging learning experiences for chil
 - Opportunity to work in an international environment
 
 Join EduFuture Academy and help shape the future of young minds!`,
-            },
-            {
-                id: 15,
-                title: 'Financial Analyst',
-                company: 'FinancePlus',
-                location: 'Tokyo',
-                category: 'Finance',
-                experience: 'Senior',
-                description: `FinancePlus is a leading financial services company providing investment and advisory services to institutional clients. We're seeking a Senior Financial Analyst to join our investment research team.
+        },
+        {
+            id: 15,
+            title: 'Financial Analyst',
+            company: 'FinancePlus',
+            location: 'Tokyo',
+            category: 'Finance',
+            experience: 'Senior',
+            description: `FinancePlus is a leading financial services company providing investment and advisory services to institutional clients. We're seeking a Senior Financial Analyst to join our investment research team.
 
 **Job Summary:**
 The Senior Financial Analyst will conduct in-depth financial analysis, prepare investment recommendations, and support portfolio management decisions. You'll work with complex financial data to provide insights for investment strategies.
@@ -714,7 +695,6 @@ The Senior Financial Analyst will conduct in-depth financial analysis, prepare i
 - Career progression opportunities
 
 Join FinancePlus and contribute to shaping investment strategies in Japan's dynamic financial markets!`,
-            },
-        ];
-    }
+        },
+    ];
 };

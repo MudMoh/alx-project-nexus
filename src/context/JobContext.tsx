@@ -45,25 +45,39 @@ export const JobProvider: React.FC<JobProviderProps> = ({ children }) => {
         search: '',
     });
 
-    const CACHE_KEY = 'jobs_cache';
+    const CACHE_KEY = 'jobs_cache_v6';
+
+    // Clear old cache on app start
+    useEffect(() => {
+        AsyncStorage.removeItem('jobs_cache');
+    }, []);
 
     const fetchJobsData = useCallback(async () => {
+        console.log('DEBUG: Starting fetchJobsData');
         setLoading(true);
         setError(null);
         try {
             // Try cache first
             const cached = await AsyncStorage.getItem(CACHE_KEY);
+            console.log('DEBUG: Cached data exists for v6:', !!cached);
             if (cached) {
-                setJobs(JSON.parse(cached));
+                const parsedCache = JSON.parse(cached);
+                console.log('DEBUG: Loaded from v6 cache, jobs count:', parsedCache.length);
+                setJobs(parsedCache);
             }
             // Fetch fresh data
+            console.log('DEBUG: Fetching fresh data from API');
             const data = await fetchJobs();
+            console.log('DEBUG: Fetched data, jobs count:', data.length);
             setJobs(data);
             await AsyncStorage.setItem(CACHE_KEY, JSON.stringify(data));
+            console.log('DEBUG: Saved new data to v6 cache');
         } catch (err) {
+            console.log('DEBUG: Error in fetchJobsData:', err);
             if (!jobs.length) setError('No cached data available');
         } finally {
             setLoading(false);
+            console.log('DEBUG: fetchJobsData completed');
         }
     }, [jobs.length]);
 
